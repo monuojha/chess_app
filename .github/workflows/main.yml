@@ -20,11 +20,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-        working-directory: chess  # Set correct working directory
+        working-directory: ./chess  # Set correct working directory
 
       - name: Build React App (Vite)
         run: npm run build
-        working-directory: chess  # Set correct working directory
+        working-directory: ./chess  # Set correct working directory
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
