@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -19,9 +20,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+        working-directory: chess_app  # Set correct working directory
 
       - name: Build React App (Vite)
         run: npm run build
+        working-directory: chess_app  # Set correct working directory
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -29,5 +32,5 @@ jobs:
           server: ftp.chessapp.htutorshiksha.com
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist/
+          local-dir: chess_app/dist/  # Make sure this path is correct
           server-dir: /public_html/chessapp/
