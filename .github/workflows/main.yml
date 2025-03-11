@@ -26,11 +26,21 @@ jobs:
         run: npm run build
         working-directory: ./chess  # Set correct working directory
 
-      - name: Deploy to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      # - name: Deploy to Hostinger via FTP
+      #   uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      #   with:
+      #     server: ftp.htutorshiksha.com
+      #     username: ${{ secrets.FTP_USER }}
+      #     password: ${{ secrets.FTP_PASSWORD }}
+      #     local-dir: chess/dist/  # Make sure this path is correct
+      #     server-dir: /public_html/chessapp/
+
+      - name: Deploy using SFTP
+        uses: appleboy/scp-action@master
         with:
-          server: ftp.htutorshiksha.com
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: chess/dist/  # Make sure this path is correct
-          server-dir: /public_html/chessapp/
+          host: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USER }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          port: 22
+          source: "dist/"
+          target: "/home/YOUR_USERNAME/public_html/chessapp/"
